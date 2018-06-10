@@ -30,6 +30,8 @@ public class MyJob implements Job {
             }
         } catch (Exception e) {
             log.info(new Date() + " -- "+jobName+" |失败| "+e.getMessage());
+            //email(new Date() + " -- "+jobName+" |失败| "+e.getMessage());
+
             e.printStackTrace();
         }
         long usedTime = System.currentTimeMillis() - start;
