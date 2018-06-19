@@ -20,21 +20,24 @@ public class MyJob implements Job {
         String jobName = map.getString("jobName");
 
         long start = System.currentTimeMillis();
-        log.info(new Date() + " >>>>> "+jobName+" | " + remoteUrl+" |begin");
+        log.info(new Date() + " >>>>> " + jobName + " | " + remoteUrl + " |begin");
         try {
-            String returnJson = HttpClientUtil.doGet(remoteUrl,null);
+            String returnJson = HttpClientUtil.doGet(remoteUrl, null);
             ResponseDto responseDto = JsonUtil.fromJson(returnJson, ResponseDto.class);
-            if(responseDto!=null && "0".equals(responseDto.getCode()))
-            {
-                log.info(new Date() + " -- "+jobName+" |成功");
+            if (responseDto != null && "0".equals(responseDto.getCode())) {
+                log.info(new Date() + " -- " + jobName + " |成功");
             }
         } catch (Exception e) {
-            log.info(new Date() + " -- "+jobName+" |失败| "+e.getMessage());
-            //email(new Date() + " -- "+jobName+" |失败| "+e.getMessage());
+            log.info(new Date() + " -- " + jobName + " |失败| " + e.getMessage());
+            //email(new Date() + " -- "+jobName+" |失败| "+e.toString());
 
             e.printStackTrace();
         }
-        long usedTime = System.currentTimeMillis() - start;
-        log.info(new Date() + " ========= "+jobName+" | " + remoteUrl+" |end|耗时:" + String.valueOf(usedTime) + "毫秒");
+        long usedTimeMillis = System.currentTimeMillis() - start;
+        log.info(new Date() + " ========= " + jobName + " | " + remoteUrl + " |end|耗时:" + String.valueOf(usedTimeMillis) + "毫秒");
+
+        if (usedTimeMillis > 1000 * 60 * 5) {
+            //email("耗时超5分钟。"+jobName+" | " + remoteUrl+" |end|耗时:" + String.valueOf(usedTimeMillis) + "毫秒");
+        }
     }
 }

@@ -6,6 +6,7 @@ server:
 
 task.config:
   list:
+    - {isRun: 1, name: test, cron: "0/10 * * * * ?", remoteUrl: "http://localhost:9001/test/delay"}
     - {isRun: 1, name: footballday, cron: "0/10 * * * * ?", remoteUrl: "http://www.footballday.cn"}
     - {isRun: 1, name: shangpin, cron: "0/15 * * * * ?", remoteUrl: "http://www.shangpin.com"}
     - {isRun: 1, name: footballtime, cron: "0/20 * * * * ?", remoteUrl: "http://www.footballtime.cn"}
